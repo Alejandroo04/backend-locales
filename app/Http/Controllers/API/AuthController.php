@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -39,12 +42,28 @@ class AuthController extends Controller
 
     public function refresh()
     {
-        return $this->respondWithToken(Auth::refresh());
+        try {
+            return $this->respondWithToken(Auth::refresh());
+        } catch (TokenExpiredException $e) {
+            return response()->json(['error' => 'Token expired'], 401);
+        } catch (TokenInvalidException $e) {
+            return response()->json(['error' => 'Token invalid'], 401);
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'Token absent'], 401);
+        }
     }
 
     public function me()
     {
-        return response()->json(Auth::user());
+        try {
+            return response()->json(Auth::user());
+        } catch (TokenExpiredException $e) {
+            return response()->json(['error' => 'Token expired'], 401);
+        } catch (TokenInvalidException $e) {
+            return response()->json(['error' => 'Token invalid'], 401);
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'Token absent'], 401);
+        }
     }
 
     protected function respondWithToken($token)
