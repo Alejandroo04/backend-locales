@@ -23,7 +23,7 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     // Route::post('refresh', [AuthController::class, 'refresh']);
-    // Route::get('me', [AuthController::class, 'me']);
+    Route::get('me', [AuthController::class, 'me']);
 
     Route::apiResource('roles', RolsController::class);
     Route::apiResource('categorias', CategoryController::class);
