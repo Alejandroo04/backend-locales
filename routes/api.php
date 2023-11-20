@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RolsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,9 +22,10 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::get('me', [AuthController::class, 'me']);
+    // Route::post('refresh', [AuthController::class, 'refresh']);
+    // Route::get('me', [AuthController::class, 'me']);
 
     Route::apiResource('roles', RolsController::class);
     Route::apiResource('categorias', CategoryController::class);
+    Route::apiResource('usuarios', UserController::class);
 });
