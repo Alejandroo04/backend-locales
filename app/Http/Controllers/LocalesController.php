@@ -13,7 +13,12 @@ class LocalesController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(Local::all());
+        $locales = Local::all();
+
+        // Cargar las relaciones utilizando los nombres correctos
+        $locales->load('category', 'encargado', 'estado', 'subcategory', 'representanteLegal');
+
+        return response()->json($locales);
     }
 
     /**
@@ -57,12 +62,14 @@ class LocalesController extends Controller
 
         if ($local) {
             $local->update([
-                'nombre_de_negocio' => $request->nombre_de_negocio,
+                'nombre' => $request->nombre,
                 'ubicacion' => $request->ubicacion,
                 'telefono' => $request->telefono,
-                'representante_legal' => $request->representante_legal,
-                'categoria' => $request->categoria,
-                'subcategoria' => $request->subcategoria
+                'categoria_id' => $request->categoria,
+                'subcategoria_id' => $request->subcategoria,
+                'encargado_id' => $request->encargado,
+                'representante_legal_id' => $request->representante,
+                'estado_id' => $request->status
             ]);
 
             return response()->json(['message' => 'Local actualizado con éxito', 'local' => $local], 200);

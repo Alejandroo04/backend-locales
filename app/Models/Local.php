@@ -15,7 +15,7 @@ class Local extends Model
         'nombre',
         'ubicacion',
         'telefono', 
-        'representante',
+        'representante_legal_id',
         'categoria_id', 
         'subcategoria_id',
         'encargado_id',
@@ -24,12 +24,12 @@ class Local extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'categoria_id');
     }
 
     public function subcategory()
     {
-        return $this->belongsTo(Subcategory::class);
+        return $this->belongsTo(Subcategory::class, 'subcategoria_id');
     }
 
     public function encargado()
@@ -39,7 +39,7 @@ class Local extends Model
     
     public function representanteLegal()
     {
-        return $this->belongsTo(User::class, 'representante');
+        return $this->belongsTo(User::class, 'representante_legal_id');
     }
 
     public function estado()

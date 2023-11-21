@@ -17,7 +17,7 @@ return [
 
     'paths' => ['*'],
 
-    'allowed_methods' => ['**'],
+    'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
 
    // 'Access-Control-Allow-Origin' => ['http://localhost:4200'],
 
