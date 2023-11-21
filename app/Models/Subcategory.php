@@ -19,4 +19,8 @@ class Subcategory extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function locales()
+    {
+        return $this->hasMany(Local::class);
+    }
 }

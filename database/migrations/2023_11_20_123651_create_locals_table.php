@@ -11,29 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locals', function (Blueprint $table) {
+        Schema::create('locales', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->string('ubicacion');
+            $table->string('telefono');
+            $table->unsignedBigInteger('categoria_id');
+            $table->unsignedBigInteger('subcategoria_id');
+            $table->unsignedBigInteger('encargado_id')->nullable();
+            $table->unsignedBigInteger('representante_legal_id')->nullable();
+            $table->timestamps();
             $table->boolean('status');
 
-            $table->foreignId('dueno_id')
-            ->constrained('users')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-
-            $table->foreignId('category_id')
-            ->constrained('categories')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-
-            $table->foreignId('encargado_id')
-            ->constrained('users')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            $table->foreign('categoria_id')->references('id')->on('categories');
+            $table->foreign('subcategoria_id')->references('id')->on('subcategories');
+            $table->foreign('encargado_id')->references('id')->on('users');
+            $table->foreign('representante_legal_id')->references('id')->on('users');
 
             $table->softDeletes();
-            $table->timestamps();
         });
     }
 
@@ -42,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('locals');
+        Schema::dropIfExists('locales');
     }
 };

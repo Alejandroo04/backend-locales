@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Rol extends Model
 {
     use HasFactory, SoftDeletes;
+    
+    protected $table = 'roles'; // Agrega esta línea para especificar el nombre correcto de la tabla
+
 
     protected $fillable = [
         'name',

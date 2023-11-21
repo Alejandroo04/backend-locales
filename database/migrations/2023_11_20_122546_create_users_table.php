@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->foreignId('rol_id')
             ->nullable()
-            ->constrained('rols')
+            ->constrained('roles')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 

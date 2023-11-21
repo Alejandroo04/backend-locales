@@ -12,7 +12,8 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(Category::get());
+
+        return response()->json(Category::with('subcategories')->get());
     }
 
     /**
@@ -32,7 +33,7 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        return response()->json(Category::find($id));
+        return response()->json(Category::with('subcategories')->find($id));
     }
 
     /**
