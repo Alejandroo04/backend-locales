@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Estado;
 use App\Models\Local;
 use Illuminate\Http\Request;
 
@@ -21,14 +22,14 @@ class LocalesController extends Controller
     public function store(Request $request)
     {
         $local = Local::create([
-            'nombre' => $request->nombreNegocio,
+            'nombre' => $request->nombre,
             'ubicacion' => $request->ubicacion,
             'telefono' => $request->telefono,
             'categoria_id' => $request->categoria,
             'subcategoria_id' => $request->subcategoria,
             'encargado_id' => $request->encargado,
-            'representante_legal_id' => $request->representanteLegal,
-            'status' => $request->status
+            'representante_legal_id' => $request->representante,
+            'estado_id' => $request->status
         ]);
 
         return response()->json(['message' => 'Local creado con éxito', 'local' => $local], 201);
@@ -84,4 +85,11 @@ class LocalesController extends Controller
             return response()->json(['message' => 'Local no encontrado'], 404);
         }
     }
+
+    public function status()
+    {
+        return response()->json(Estado::all());
+    }
+
+
 }

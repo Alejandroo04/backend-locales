@@ -26,9 +26,9 @@ Route::apiResource('roles', RolesController::class);
 
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
-    // Route::post('refresh', [AuthController::class, 'refresh']);
+    
     Route::get('me', [AuthController::class, 'me']);
-
+    Route::get('estados', [LocalesController::class, 'status']);
     Route::apiResource('categorias', CategoryController::class);
     Route::apiResource('locales', LocalesController::class);
     Route::apiResource('usuarios', UserController::class);

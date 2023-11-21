@@ -12,13 +12,14 @@ class Local extends Model
     protected $table = 'locales';
 
     protected $fillable = [
-        'nombre_de_negocio',
+        'nombre',
         'ubicacion',
         'telefono', 
-        'representante_legal',
-        'category_id', 
-        'subcategory_id',
-        'encargado_id'
+        'representante',
+        'categoria_id', 
+        'subcategoria_id',
+        'encargado_id',
+        'estado_id',
     ];
 
     public function category()
@@ -38,8 +39,14 @@ class Local extends Model
     
     public function representanteLegal()
     {
-        return $this->belongsTo(User::class, 'representante_legal_id');
+        return $this->belongsTo(User::class, 'representante');
     }
+
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class);
+    }
+    
 
     
 }
