@@ -21,7 +21,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = User::create([
-            'name' => $request->user,
+            'name' => $request->name,
+            'last_name' => $request->last_name,
             'phone' => $request->phone,
             'email' => $request->email,
             'password' => $request->password,
